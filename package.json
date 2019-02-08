@@ -1,0 +1,40 @@
+{
+  "name": "shareably-take-home",
+  "version": "1.0.0",
+  "description": "A tool to scale the spend on ad campaigns up or down depending on their profitablity.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charliegphan/shareably-take-home.git"
+  },
+  "author": "Charlie Phan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/charliegphan/shareably-take-home/issues"
+  },
+  "homepage": "https://github.com/charliegphan/shareably-take-home#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "css-loader": "^2.1.0",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "style-loader": "^0.23.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3"
+  }
+}
