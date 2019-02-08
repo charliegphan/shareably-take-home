@@ -4,7 +4,9 @@
   "description": "A tool to scale the spend on ad campaigns up or down depending on their profitablity.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack.config.js --w",
+    "dev": "nodemon server/server.js",
+    "start": "node server/index.js"
   },
   "repository": {
     "type": "git",
