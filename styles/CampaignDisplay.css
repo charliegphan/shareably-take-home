@@ -1,3 +1,8 @@
+.displayTable {
+  width: 100%;
+  text-align: left;
+}
+
 .wrapper {
   border: 2px solid black;
   height: 100%;
@@ -5,4 +10,5 @@
   margin: auto;
   display: flex;
   flex-direction: row;
+  color: 	#383838
 }

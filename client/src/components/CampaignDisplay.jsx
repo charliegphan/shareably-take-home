@@ -7,7 +7,7 @@ import styles from '../../../styles/CampaignDisplay.css';
 
 const CampaignDisplay = () => (
   <div className={styles.wrapper}>
-    <table>
+    <table className={styles.displayTable}>
       <tr>
         <th>Campaign ID</th>
         <th>Revenue</th>
