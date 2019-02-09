@@ -6,7 +6,7 @@ const path = require('path');
 
 app.use(express.static(path.resolve(__dirname, '../public')));
 
-app.get('/hi', (req, res) => {
+app.get('/day', (req, res) => {
   console.log('hit');
   res.send('hello');
 });

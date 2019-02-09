@@ -6,6 +6,7 @@ import styles from '../../../styles/CampaignDisplay.css';
 
 const CampaignDisplay = () => (
   <div className={styles.wrapper}>
+
     <table className={styles.displayTable}>
       <tbody>
         <tr>

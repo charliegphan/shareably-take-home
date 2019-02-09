@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import Header from './Header.jsx';
 import CampaignDisplay from './CampaignDisplay.jsx';
+import Options from './Options.jsx';
 
 import styles from '../../../styles/App.css';
 
@@ -11,7 +12,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      display: 'dateRange', // other is single date;
+      display: 'week', // other is single date;
       range: {
         startDate: '2019-01-25',
         endDate: '2019-01-31',
@@ -21,7 +22,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('/hi')
+    axios.get('/day')
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }
@@ -30,6 +31,7 @@ class App extends Component {
     return (
       <div className={styles.wrapper}>
         <Header />
+        <Options />
         <CampaignDisplay />
       </div>
     );
