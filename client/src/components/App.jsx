@@ -13,15 +13,18 @@ class App extends Component {
 
     this.state = {
       display: 'week', // other is single date;
-      day: null,
+      date: null,
     };
 
     this.handleChangeOptions = this.handleChangeOptions.bind(this);
   }
 
   componentDidMount() {
-    axios.get('/day')
-      .then(res => console.log(res))
+    axios.get('/date', {
+      params: {
+        date: '2019-01-25',
+      },
+    }).then(res => console.log(res))
       .catch(err => console.log(err));
   }
 

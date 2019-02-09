@@ -4,8 +4,9 @@ import styles from '../../../styles/Options.css';
 
 const Options = ({ display, handleChangeOptions}) => (
   <div className={styles.options}>
-    <h4>displaying by: {display}</h4>
+    <div>displaying by: {display}</div>
     <select
+      className={styles.dropdown}
       defaultValue={display}
       onChange={e => handleChangeOptions(e.target.value)}
     >

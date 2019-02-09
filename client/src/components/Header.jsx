@@ -9,7 +9,7 @@ const Header = () => (
       alt=""
       src="http://sbly-web-prod-shareably.netdna-ssl.com/assets/shareably-horizontal-expanded-2.png"
     />
-    <h3 className={styles.header}>INTERNAL TOOLS</h3>
+    <div className={styles.header}>INTERNAL TOOLS</div>
   </div>
 
 );
