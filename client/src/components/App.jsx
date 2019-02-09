@@ -13,12 +13,10 @@ class App extends Component {
 
     this.state = {
       display: 'week', // other is single date;
-      range: {
-        startDate: '2019-01-25',
-        endDate: '2019-01-31',
-      },
       day: null,
     };
+
+    this.handleChangeOptions = this.handleChangeOptions.bind(this);
   }
 
   componentDidMount() {
@@ -27,11 +25,22 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
+  handleChangeOptions(option) {
+    this.setState({
+      display: option,
+    });
+  }
+
   render() {
+    const { display } = this.state;
+
     return (
       <div className={styles.wrapper}>
         <Header />
-        <Options />
+        <Options
+          display={display}
+          handleChangeOptions={this.handleChangeOptions}
+        />
         <CampaignDisplay />
       </div>
     );
