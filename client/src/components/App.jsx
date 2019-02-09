@@ -11,8 +11,19 @@ class App extends Component {
     super(props);
 
     this.state = {
-      display: 'week',
+      display: 'dateRange', // other is single date;
+      range: {
+        startDate: '2019-01-25',
+        endDate: '2019-01-31',
+      },
+      day: null,
     };
+  }
+
+  componentDidMount() {
+    axios.get('/hi')
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   }
 
   render() {
