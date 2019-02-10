@@ -1,8 +1,5 @@
 require('dotenv').config();
-// const Promise = require('bluebird');
 const request = require('request');
-
-// Promise.promisifyAll(request);
 
 const generateWeekOfDates = (dateRangeOfWeek) => {
   const [startDate, endDate] = dateRangeOfWeek.split(',').map(date => new Date(date));
@@ -50,10 +47,28 @@ const generateWeekOfMetrics = (dateRangeOfWeek = '2019-01-25,2019-01-31', callba
   Promise.all(promisedMetrics).then(results => callback(results));
 };
 
-const aggregateMetricsIntoOneWeek = () => {
+const aggregateWeekOfMetrics = (weekOfMetrics) => {
+  console.log(weekOfMetrics);
+};
+
+const calculateDayToDayTrend = (adCampaignDay1, adCampaignDay2) => {
 
 };
 
+const calculateWeekTrend = () => {
+
+};
+
+const convertWeekOfMetricsToAdCampaignsByWeek = (weekOfMetrics) => {
+
+};
+
+const calculateProfit = (weekOfMetrics) => {
+
+};
+
+generateWeekOfMetrics('2019-01-25,2019-01-31', aggregateWeekOfMetrics);
+
 exports = {
-  aggregateMetricsIntoOneWeek,
+  aggregateWeekOfMetrics,
 };
