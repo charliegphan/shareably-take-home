@@ -7,15 +7,16 @@ const path = require('path');
 
 app.use(express.static(path.resolve(__dirname, '../public')));
 
-app.get('/date', (req, res) => {
+app.get('/week', (req, res) => {
   const urlAndQuery = {
     url: 'http://api.shareably.net:3030/ad-insights',
     qs: {
       accessToken: process.env.ACCESSTOKEN,
-      date: req.query.date,
+      d: req.query.w,
       metrics: 'spend,revenue,impressions,clicks',
     },
   };
+
   const apiResponse = request(urlAndQuery, (err, res, body) => {
     if (err) {
       console.log(err);

@@ -13,6 +13,7 @@ class App extends Component {
 
     this.state = {
       display: 'week', // other is single date;
+      week: '2019-01-25,2019-01-31',
       date: null,
     };
 
@@ -20,9 +21,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('/date', {
+    axios.get('/week', {
       params: {
-        date: '2019-01-25',
+        week: '2019-01-25,2019-01-31',
       },
     }).then(res => console.log(res))
       .catch(err => console.log(err));
