@@ -20,6 +20,7 @@
   "homepage": "https://github.com/charliegphan/shareably-take-home#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "bluebird": "^3.5.3",
     "css-loader": "^2.1.0",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",

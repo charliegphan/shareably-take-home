@@ -1,12 +1,11 @@
 require('dotenv').config();
+// const Promise = require('bluebird');
 const request = require('request');
 
-/*
-dateRange will be two dates that are comma separated
-*/
+// Promise.promisifyAll(request);
 
-const generateWeekOfDates = (dateRange = '2019-01-25,2019-01-31') => {
-  const [startDate, endDate] = dateRange.split(',').map(date => new Date(date));
+const generateWeekOfDates = (dateRangeOfWeek) => {
+  const [startDate, endDate] = dateRangeOfWeek.split(',').map(date => new Date(date));
   endDate.setDate(endDate.getDate() + 1);
 
   const weekOfDates = [];
@@ -14,9 +13,11 @@ const generateWeekOfDates = (dateRange = '2019-01-25,2019-01-31') => {
   const currentDate = startDate;
 
   while (currentDate < endDate) {
-    const month = currentDate.getUTCMonth() + 1;
     const day = currentDate.getUTCDate();
     const year = currentDate.getUTCFullYear();
+    let month = currentDate.getUTCMonth() + 1;
+
+    month = month >= 10 ? month : `0${month}`;
 
     weekOfDates.push(`${year}-${month}-${day}`);
     currentDate.setDate(currentDate.getDate() + 1);
@@ -25,31 +26,34 @@ const generateWeekOfDates = (dateRange = '2019-01-25,2019-01-31') => {
   return weekOfDates;
 };
 
-const requestMetricsByDate = (date = '2019-01-25') => {
-  const urlAndQuery = {
-    url: 'http://api.shareably.net:3030/ad-insights',
-    qs: {
-      accessToken: process.env.ACCESSTOKEN,
-      metrics: 'spend,revenue,impressions,clicks',
-      date,
-    },
-  };
+const generateWeekOfMetrics = (dateRangeOfWeek = '2019-01-25,2019-01-31', callback) => {
+  const weekOfDates = generateWeekOfDates(dateRangeOfWeek);
 
-  request(urlAndQuery, (err, res, body) => {
-    if (err) {
-      console.log(err);
-    }
+  const promisedMetrics = weekOfDates.map(date => new Promise((resolve) => {
+    const urlAndQuery = {
+      url: 'http://api.shareably.net:3030/ad-insights',
+      qs: {
+        accessToken: process.env.ACCESSTOKEN,
+        metrics: 'spend,revenue,impressions,clicks',
+        date,
+      },
+    };
+    request(urlAndQuery, (err, res) => {
+      if (err) {
+        console.log(err);
+      }
 
-    console.log(JSON.parse(body));
-  });
+      resolve(JSON.parse(res.body));
+    });
+  }));
+
+  Promise.all(promisedMetrics).then(results => callback(results));
 };
 
-requestMetricsByDate();
-
-const aggregateMetrics = () => {
+const aggregateMetricsIntoOneWeek = () => {
 
 };
 
 exports = {
-  aggregateMetrics,
+  aggregateMetricsIntoOneWeek,
 };
