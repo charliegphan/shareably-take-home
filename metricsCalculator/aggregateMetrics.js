@@ -48,7 +48,7 @@ const generateWeekOfMetrics = (dateRangeOfWeek = '2019-01-25,2019-01-31', callba
 };
 
 const aggregateWeekOfMetrics = (weekOfMetrics) => {
-  console.log(weekOfMetrics);
+
 };
 
 const calculateDayToDayTrend = (adCampaignDay1, adCampaignDay2) => {
@@ -60,7 +60,17 @@ const calculateWeekTrend = () => {
 };
 
 const convertWeekOfMetricsToAdCampaignsByWeek = (weekOfMetrics) => {
+  const adCampaignWeeks = [];
 
+  for (let i = 0; i < weekOfMetrics[0].length; i += 1) {
+    const adCampaignMetrics = [];
+    for (let j = 0; j < weekOfMetrics.length; j += 1) {
+      adCampaignMetrics.push(weekOfMetrics[j][i]);
+    }
+    adCampaignWeeks.push(adCampaignMetrics);
+  }
+
+  return adCampaignWeeks;
 };
 
 const calculateProfit = (weekOfMetrics) => {
@@ -68,6 +78,8 @@ const calculateProfit = (weekOfMetrics) => {
 };
 
 generateWeekOfMetrics('2019-01-25,2019-01-31', aggregateWeekOfMetrics);
+generateWeekOfMetrics('2019-01-25,2019-01-31', convertWeekOfMetricsToAdCampaignsByWeek);
+
 
 exports = {
   aggregateWeekOfMetrics,
