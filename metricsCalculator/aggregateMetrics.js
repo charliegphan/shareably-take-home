@@ -47,38 +47,55 @@ const generateWeekOfMetrics = (dateRangeOfWeek = '2019-01-25,2019-01-31', callba
   Promise.all(promisedMetrics).then(results => callback(results));
 };
 
-const aggregateWeekOfMetrics = (weekOfMetrics) => {
+const convertWeekOfMetricsToAdCampaignsByWeek = (weekOfMetrics, callback) => {
+  const adCampaignWeeks = [];
 
+  for (let i = 0; i < weekOfMetrics[0].length; i += 1) {
+    const adCampaignWeek = [];
+    for (let j = 0; j < weekOfMetrics.length; j += 1) {
+      adCampaignWeek.push(weekOfMetrics[j][i]);
+    }
+    adCampaignWeeks.push(adCampaignWeek);
+  }
+
+  callback(adCampaignWeeks);
+};
+
+const aggregateWeekOfMetrics = (adCampaignWeeks) => {
+  const aggregatedMetrics = adCampaignWeeks.map((adCampaignWeek) => {
+    return adCampaignWeek.reduce((adCampaignSingleDayMetrics, nextDayMetrics) => {
+
+      return {
+        spend: Math.round((adCampaignSingleDayMetrics.spend + nextDayMetrics.spend) * 100) / 100,
+        revenue: Math.round((adCampaignSingleDayMetrics.revenue + nextDayMetrics.revenue) * 100) / 100,
+        impressions: adCampaignSingleDayMetrics.impressions + nextDayMetrics.impressions,
+        clicks: adCampaignSingleDayMetrics.clicks + nextDayMetrics.clicks,
+        id: adCampaignSingleDayMetrics.id,
+      };
+    });
+  });
+
+  console.log(aggregatedMetrics);
 };
 
 const calculateDayToDayTrend = (adCampaignDay1, adCampaignDay2) => {
 
 };
 
-const calculateWeekTrend = () => {
+const calculateWeekTrend = (adCampaignWeeks) => {
 
 };
 
-const convertWeekOfMetricsToAdCampaignsByWeek = (weekOfMetrics) => {
-  const adCampaignWeeks = [];
-
-  for (let i = 0; i < weekOfMetrics[0].length; i += 1) {
-    const adCampaignMetrics = [];
-    for (let j = 0; j < weekOfMetrics.length; j += 1) {
-      adCampaignMetrics.push(weekOfMetrics[j][i]);
-    }
-    adCampaignWeeks.push(adCampaignMetrics);
-  }
-
-  return adCampaignWeeks;
-};
-
-const calculateProfit = (weekOfMetrics) => {
+const calculateProfit = () => {
 
 };
 
-generateWeekOfMetrics('2019-01-25,2019-01-31', aggregateWeekOfMetrics);
-generateWeekOfMetrics('2019-01-25,2019-01-31', convertWeekOfMetricsToAdCampaignsByWeek);
+generateWeekOfMetrics('2019-01-25,2019-01-31', (weekOfMetrics) => {
+  convertWeekOfMetricsToAdCampaignsByWeek(weekOfMetrics, (adCampaignWeeks) => {
+    aggregateWeekOfMetrics(adCampaignWeeks);
+  });
+});
+// generateWeekOfMetrics('2019-01-25,2019-01-31', convertWeekOfMetricsToAdCampaignsByWeek);
 
 
 exports = {
