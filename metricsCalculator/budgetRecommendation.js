@@ -23,7 +23,7 @@ const generateWeekOfDates = (dateRangeOfWeek) => {
   return weekOfDates;
 };
 
-const generateWeekOfMetrics = (dateRangeOfWeek = '2019-01-25,2019-01-31', callback) => {
+const generateWeekOfMetrics = (dateRangeOfWeek, callback) => {
   const weekOfDates = generateWeekOfDates(dateRangeOfWeek);
 
   const promisedMetrics = weekOfDates.map(date => new Promise((resolve) => {
@@ -110,17 +110,23 @@ const calculateAggregateProfitsForWeek = (weekOfMetrics, callback) => {
 };
 
 
-const sortAggregateWeekOfMetricsByProfit = (aggregateMetricsWithProfit) => {
+const sortAggregateWeekOfMetricsByProfit = (aggregateMetricsWithProfit, callback) => {
   const profitComparator = (adCampaign1, adCampaign2) => {
     return adCampaign2.profit - adCampaign1.profit;
   };
 
   aggregateMetricsWithProfit.sort(profitComparator);
+
+  callback(aggregateMetricsWithProfit);
 };
 
 // BUDGET RECOMMENDATION CALCUALTIONS
 
 const calculateAverageProfitForWeek = () => {
+
+};
+
+const decorateMetrics = () => {
 
 };
 
@@ -132,18 +138,22 @@ const calculateWeekTrend = (adCampaignWeeks) => {
 
 };
 
-generateWeekOfMetrics('2019-01-25,2019-01-31', (weekOfMetrics) => {
-  convertWeekOfMetricsToAdCampaignsByWeek(weekOfMetrics, (adCampaignWeeks) => {
-    aggregateWeekOfMetrics(adCampaignWeeks, (metricsCombinedAcrossWeek) => {
-      calculateAggregateProfitsForWeek(metricsCombinedAcrossWeek, (aggregateMetricsWithProfit) => {
-        sortAggregateWeekOfMetricsByProfit(aggregateMetricsWithProfit);
-      });
-    });
-  });
-});
+// generateWeekOfMetrics('2019-01-25,2019-01-31', (weekOfMetrics) => {
+//   convertWeekOfMetricsToAdCampaignsByWeek(weekOfMetrics, (adCampaignWeeks) => {
+//     aggregateWeekOfMetrics(adCampaignWeeks, (metricsCombinedAcrossWeek) => {
+//       calculateAggregateProfitsForWeek(metricsCombinedAcrossWeek, (aggregateMetricsWithProfit) => {
+//         sortAggregateWeekOfMetricsByProfit(aggregateMetricsWithProfit);
+//       });
+//     });
+//   });
+// });
 // generateWeekOfMetrics('2019-01-25,2019-01-31', convertWeekOfMetricsToAdCampaignsByWeek);
 
 
-exports = {
+module.exports = {
+  generateWeekOfMetrics,
+  convertWeekOfMetricsToAdCampaignsByWeek,
   aggregateWeekOfMetrics,
+  calculateAggregateProfitsForWeek,
+  sortAggregateWeekOfMetricsByProfit,
 };
