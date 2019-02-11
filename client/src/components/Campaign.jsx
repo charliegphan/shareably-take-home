@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Campaign = () => (
+const Campaign = ({ adCampaign }) => (
   <tr>
-    <td>1</td>
-    <td>2</td>
-    <td>3</td>
-    <td>4</td>
-    <td>5</td>
-    <td>6</td>
+    <td>{adCampaign.id}</td>
+    <td>{adCampaign.revenue}</td>
+    <td>{adCampaign.spend}</td>
+    <td>{adCampaign.profit}</td>
+    <td>{adCampaign.impressions}</td>
+    <td>{adCampaign.clicks}</td>
     <td>7</td>
     <td>8</td>
   </tr>

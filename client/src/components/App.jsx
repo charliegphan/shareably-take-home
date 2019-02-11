@@ -14,7 +14,7 @@ class App extends Component {
     this.state = {
       display: 'week', // other is single date;
       week: '2019-01-25,2019-01-31',
-      date: null,
+      weekMetrics: [],
     };
 
     this.handleChangeOptions = this.handleChangeOptions.bind(this);
@@ -25,7 +25,9 @@ class App extends Component {
       params: {
         week: '2019-01-25,2019-01-31',
       },
-    }).then(res => console.log(res))
+    }).then(res => this.setState({
+      weekMetrics: res.data,
+    }))
       .catch(err => console.log(err));
   }
 
@@ -36,7 +38,10 @@ class App extends Component {
   }
 
   render() {
-    const { display } = this.state;
+    const {
+      display,
+      weekMetrics,
+    } = this.state;
 
     return (
       <div className={styles.wrapper}>
@@ -45,7 +50,7 @@ class App extends Component {
           display={display}
           handleChangeOptions={this.handleChangeOptions}
         />
-        <CampaignDisplay />
+        <CampaignDisplay weekMetrics={weekMetrics} />
       </div>
     );
   }
