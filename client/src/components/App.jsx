@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import Header from './Header.jsx';
 import CampaignDisplay from './CampaignDisplay.jsx';
-import Options from './Options.jsx';
 
 import styles from '../../../styles/App.css';
 
@@ -14,10 +13,11 @@ class App extends Component {
     this.state = {
       display: 'weekSummary', // other display
       week: '2019-01-25,2019-01-31',
+      currentCampaign: null,
       weekMetrics: [],
     };
 
-    this.handleChangeOptions = this.handleChangeOptions.bind(this);
+    this.handleSelectCampaign = this.handleSelectCampaign.bind(this);
   }
 
   componentDidMount() {
@@ -31,10 +31,15 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
-  handleChangeOptions(option) {
-    this.setState({
-      display: option,
-    });
+  handleSelectCampaign(id) {
+    axios.get('/campaign', {
+      params: {
+        week: '2019-01-25,2019-01-31',
+        id,
+      },
+    }).then(res => this.setState({
+
+    }));
   }
 
   render() {
@@ -46,7 +51,10 @@ class App extends Component {
     return (
       <div className={styles.wrapper}>
         <Header />
-        <CampaignDisplay weekMetrics={weekMetrics} />
+        <CampaignDisplay
+          weekMetrics={weekMetrics}
+          handleSelectCampaign={this.handleSelectCampaign}
+        />
       </div>
     );
   }

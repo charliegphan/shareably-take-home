@@ -9,12 +9,23 @@ const {
   calculateAggregateProfitsForWeek,
   sortAggregateWeekOfMetricsByProfit,
   allocateBudget,
+  grabAdCampaignWeek,
 } = require('../metricsCalculator/budgetRecommendation');
 
 const app = express();
 
 app.use(express.static(path.resolve(__dirname, '../public')));
 
+app.use('/campaign', (req, res) => {
+  generateWeekOfMetrics(req.query.week, (weekOfMetrics) => {
+    convertWeekOfMetricsToAdCampaignsByWeek(weekOfMetrics, (adCampaignWeeks) => {
+      const campaignWeek = grabAdCampaignWeek(adCampaignWeeks, req.query.id);
+      res.send(campaignWeek);
+    });
+  });
+});
+
+// well aware of this callback hell
 app.get('/week', (req, res) => {
   generateWeekOfMetrics(req.query.week, (weekOfMetrics) => {
     convertWeekOfMetricsToAdCampaignsByWeek(weekOfMetrics, (adCampaignWeeks) => {

@@ -4,7 +4,7 @@ import Campaign from './Campaign.jsx';
 
 import styles from '../../../styles/CampaignDisplay.css';
 
-const CampaignDisplay = ({ weekMetrics }) => (
+const CampaignDisplay = ({ weekMetrics, handleSelectCampaign }) => (
   <div className={styles.wrapper}>
 
     <table className={styles.displayTable}>
@@ -16,14 +16,14 @@ const CampaignDisplay = ({ weekMetrics }) => (
           <th>Profit</th>
           <th>Impressions</th>
           <th>Clicks</th>
-          <th>Trend</th>
           <th>Budget Recommendation</th>
         </tr>
          
         {weekMetrics.map(adCampaign =>
-          <Campaign 
+          <Campaign
             adCampaign={adCampaign} 
             key={adCampaign.id}
+            handleSelectCampaign={handleSelectCampaign}
           />
         )}
 

@@ -80,6 +80,14 @@ const convertWeekOfMetricsToAdCampaignsByWeek = (weekOfMetrics, callback) => {
   callback(adCampaignWeeks);
 };
 
+const grabAdCampaignWeek = (adCampaignWeeks, id) => {
+  for (let i = 0; i < adCampaignWeeks.length; i += 1) {
+    if (adCampaignWeeks[i][0].id === id) {
+      return adCampaignWeeks[i];
+    }
+  }
+};
+
 // WEEK VIEW
 const aggregateWeekOfMetrics = (adCampaignWeeks, callback) => {
   const aggregatedMetrics = adCampaignWeeks.map((adCampaignWeek) => {
@@ -102,7 +110,9 @@ const aggregateWeekOfMetrics = (adCampaignWeeks, callback) => {
 // DISPLAY METRICS CALCULATIONS
 
 // parameters: an object containing a single day of metrics for an ad campaign
-const calculateProfit = metrics => Math.round((metrics.revenue - metrics.spend) * 100) / 100;
+const calculateProfit = metrics => (
+  Math.round((metrics.revenue - metrics.spend) * 100) / 100
+);
 
 // decorator function to add profit to metrics
 // parameters: array of metrics for one ad campaign for the week
@@ -116,10 +126,13 @@ const calculateAggregateProfitsForWeek = (weekOfMetrics, callback) => {
 };
 
 
-const sortAggregateWeekOfMetricsByProfit = (aggregateMetricsWithProfit, callback) => {
-  const profitComparator = (adCampaign1, adCampaign2) => {
-    return adCampaign2.profit - adCampaign1.profit;
-  };
+const sortAggregateWeekOfMetricsByProfit = (
+  aggregateMetricsWithProfit,
+  callback,
+) => {
+  const profitComparator = (adCampaign1, adCampaign2) => (
+    adCampaign2.profit - adCampaign1.profit
+  );
 
   aggregateMetricsWithProfit.sort(profitComparator);
 
@@ -186,4 +199,5 @@ module.exports = {
   calculateAggregateProfitsForWeek,
   sortAggregateWeekOfMetricsByProfit,
   allocateBudget,
+  grabAdCampaignWeek,
 };
