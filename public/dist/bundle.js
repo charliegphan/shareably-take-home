@@ -475,7 +475,7 @@ eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loa
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \"._3xzEgcqYiONMQAtCWeHUVI {\\n  width: 100%;\\n  text-align: left;\\n}\\n\\n._3PFIotBMHkSQlGZG59w1qJ {\\n  margin-top: 120px;\\n  border: 2px solid black;\\n  height: 100%;\\n  max-width: 800px;\\n  margin: auto;\\n  display: flex;\\n  flex-direction: row;\\n  color: \\t#383838\\n}\", \"\"]);\n\n// Exports\nexports.locals = {\n\t\"displayTable\": \"_3xzEgcqYiONMQAtCWeHUVI\",\n\t\"wrapper\": \"_3PFIotBMHkSQlGZG59w1qJ\"\n};\n\n//# sourceURL=webpack:///./styles/CampaignDisplay.css?./node_modules/css-loader/dist/cjs.js??ref--4-1");
+eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \"._3xzEgcqYiONMQAtCWeHUVI {\\n  width: 100%;\\n  text-align: left;\\n}\\n\\n._3PFIotBMHkSQlGZG59w1qJ {\\n  margin-top: 120px;\\n  border: 2px solid black;\\n  height: 100%;\\n  max-width: 1200px;\\n  margin: auto;\\n  display: flex;\\n  flex-direction: row;\\n  color: \\t#383838\\n}\", \"\"]);\n\n// Exports\nexports.locals = {\n\t\"displayTable\": \"_3xzEgcqYiONMQAtCWeHUVI\",\n\t\"wrapper\": \"_3PFIotBMHkSQlGZG59w1qJ\"\n};\n\n//# sourceURL=webpack:///./styles/CampaignDisplay.css?./node_modules/css-loader/dist/cjs.js??ref--4-1");
 
 /***/ }),
 
@@ -497,7 +497,7 @@ eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loa
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \"._2MmwLe2DVZCYSzpPEWwZbf {\\n  border: 2px solid black;\\n  max-width: 800px;\\n  margin: 20px auto 20px auto;\\n}\\n\\n._3gINS8ZLEVJf0-M3lZku3Q {\\n  float: right;\\n}\", \"\"]);\n\n// Exports\nexports.locals = {\n\t\"options\": \"_2MmwLe2DVZCYSzpPEWwZbf\",\n\t\"dropdown\": \"_3gINS8ZLEVJf0-M3lZku3Q\"\n};\n\n//# sourceURL=webpack:///./styles/Options.css?./node_modules/css-loader/dist/cjs.js??ref--4-1");
+eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \"._2MmwLe2DVZCYSzpPEWwZbf {\\n  border: 2px solid black;\\n  max-width: 1200px;\\n  margin: 20px auto 20px auto;\\n}\\n\\n._3gINS8ZLEVJf0-M3lZku3Q {\\n  float: right;\\n}\", \"\"]);\n\n// Exports\nexports.locals = {\n\t\"options\": \"_2MmwLe2DVZCYSzpPEWwZbf\",\n\t\"dropdown\": \"_3gINS8ZLEVJf0-M3lZku3Q\"\n};\n\n//# sourceURL=webpack:///./styles/Options.css?./node_modules/css-loader/dist/cjs.js??ref--4-1");
 
 /***/ }),
 

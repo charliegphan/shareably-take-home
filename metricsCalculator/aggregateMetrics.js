@@ -47,12 +47,25 @@ const generateWeekOfMetrics = (dateRangeOfWeek = '2019-01-25,2019-01-31', callba
   Promise.all(promisedMetrics).then(results => callback(results));
 };
 
+// VIEW BY AD CAMPAIGN
+
+// decorator function
+// set revenue to zero if revenue does not exist on metrics
+const addZeroRevenue = (metrics) => {
+  if (!metrics.hasOwnProperty('revenue')) {
+    metrics.revenue = 0;
+  }
+
+  return metrics;
+};
+
 const convertWeekOfMetricsToAdCampaignsByWeek = (weekOfMetrics, callback) => {
   const adCampaignWeeks = [];
 
   for (let i = 0; i < weekOfMetrics[0].length; i += 1) {
     const adCampaignWeek = [];
     for (let j = 0; j < weekOfMetrics.length; j += 1) {
+      addZeroRevenue(weekOfMetrics[j][i]);
       adCampaignWeek.push(weekOfMetrics[j][i]);
     }
     adCampaignWeeks.push(adCampaignWeek);
@@ -61,10 +74,12 @@ const convertWeekOfMetricsToAdCampaignsByWeek = (weekOfMetrics, callback) => {
   callback(adCampaignWeeks);
 };
 
-const aggregateWeekOfMetrics = (adCampaignWeeks) => {
+// WEEK VIEW
+const aggregateWeekOfMetrics = (adCampaignWeeks, callback) => {
   const aggregatedMetrics = adCampaignWeeks.map((adCampaignWeek) => {
     return adCampaignWeek.reduce((adCampaignSingleDayMetrics, nextDayMetrics) => {
-
+      // console.log(adCampaignSingleDayMetrics.revenue, 'adcamp rev');
+      // console.log(adCampaignSingleDayMetrics.revenue, 'nextDay rev');
       return {
         spend: Math.round((adCampaignSingleDayMetrics.spend + nextDayMetrics.spend) * 100) / 100,
         revenue: Math.round((adCampaignSingleDayMetrics.revenue + nextDayMetrics.revenue) * 100) / 100,
@@ -75,7 +90,38 @@ const aggregateWeekOfMetrics = (adCampaignWeeks) => {
     });
   });
 
-  console.log(aggregatedMetrics);
+  callback(aggregatedMetrics);
+};
+
+// DISPLAY METRICS CALCULATIONS
+
+// parameters: an object containing a single day of metrics for an ad campaign
+const calculateProfit = metrics => Math.round((metrics.revenue - metrics.spend) * 100) / 100;
+
+// decorator function to add profit to metrics
+// parameters: array of metrics for one ad campaign for the week
+const calculateAggregateProfitsForWeek = (weekOfMetrics, callback) => {
+  weekOfMetrics.forEach((adCampaign) => {
+    const profit = calculateProfit(adCampaign);
+    adCampaign.profit = profit;
+  });
+
+  callback(weekOfMetrics);
+};
+
+
+const sortAggregateWeekOfMetricsByProfit = (aggregateMetricsWithProfit) => {
+  const profitComparator = (adCampaign1, adCampaign2) => {
+    return adCampaign2.profit - adCampaign1.profit;
+  };
+
+  aggregateMetricsWithProfit.sort(profitComparator);
+};
+
+// BUDGET RECOMMENDATION CALCUALTIONS
+
+const calculateAverageProfitForWeek = () => {
+
 };
 
 const calculateDayToDayTrend = (adCampaignDay1, adCampaignDay2) => {
@@ -86,13 +132,13 @@ const calculateWeekTrend = (adCampaignWeeks) => {
 
 };
 
-const calculateProfit = () => {
-
-};
-
 generateWeekOfMetrics('2019-01-25,2019-01-31', (weekOfMetrics) => {
   convertWeekOfMetricsToAdCampaignsByWeek(weekOfMetrics, (adCampaignWeeks) => {
-    aggregateWeekOfMetrics(adCampaignWeeks);
+    aggregateWeekOfMetrics(adCampaignWeeks, (metricsCombinedAcrossWeek) => {
+      calculateAggregateProfitsForWeek(metricsCombinedAcrossWeek, (aggregateMetricsWithProfit) => {
+        sortAggregateWeekOfMetricsByProfit(aggregateMetricsWithProfit);
+      });
+    });
   });
 });
 // generateWeekOfMetrics('2019-01-25,2019-01-31', convertWeekOfMetricsToAdCampaignsByWeek);
