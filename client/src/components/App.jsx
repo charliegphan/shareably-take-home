@@ -27,6 +27,7 @@ class App extends Component {
       },
     }).then(res => this.setState({
       weekMetrics: res.data,
+      currentCampaign: null,
     }))
       .catch(err => console.log(err));
   }
@@ -38,7 +39,7 @@ class App extends Component {
         id,
       },
     }).then(res => this.setState({
-
+      currentCampaign: res.data,
     }));
   }
 
@@ -46,6 +47,7 @@ class App extends Component {
     const {
       display,
       weekMetrics,
+      currentCampaign,
     } = this.state;
 
     return (
