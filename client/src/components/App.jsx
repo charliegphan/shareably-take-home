@@ -12,7 +12,6 @@ class App extends Component {
     super(props);
 
     this.state = {
-      display: 'weekSummary', // other display
       week: '2019-01-25,2019-01-31',
       currentCampaign: null,
       weekMetrics: [],
@@ -52,7 +51,6 @@ class App extends Component {
 
   render() {
     const {
-      display,
       weekMetrics,
       currentCampaign,
     } = this.state;
@@ -66,7 +64,16 @@ class App extends Component {
           adCampaignWeek={currentCampaign}
         />
       );
-      displayWeekSummaryButton = (<div />);
+      displayWeekSummaryButton = (
+        <div className={styles.buttonWrapper}>
+          <button
+            className={styles.button}
+            type="button"
+            onClick={() => this.handleDisplayWeekSummary()}
+          >Display Week Summary
+          </button>
+        </div>
+      );
     } else {
       currentDisplay = (
         <CampaignDisplay
@@ -74,18 +81,13 @@ class App extends Component {
           handleSelectCampaign={this.handleSelectCampaign}
         />
       );
-      displayWeekSummaryButton = (
-        <button
-          type="button"
-          onClick={() => this.handleDisplayWeekSummary()}
-        >Display Week Summary
-        </button>
-      );
+      displayWeekSummaryButton = (<div className={styles.buttonWrapper} />);
     }
 
     return (
       <div className={styles.wrapper}>
         <Header />
+        {displayWeekSummaryButton}
         {currentDisplay}
       </div>
     );

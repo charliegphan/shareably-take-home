@@ -4,7 +4,25 @@ html, body {
 }
 
 .wrapper {
-  border: 3px solid black;
   min-height: 100vh;
 }
 
+.button {
+  margin: 0 auto 20px auto;
+  display: block;
+  height: 30px;
+  background: #1AA7E9;
+  color: white;
+  font-family: Oswald;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.buttonWrapper {
+  max-width: 1200px;
+  height: 30px;
+  width: 150px;
+  margin: 0 auto 10px auto;
+}
