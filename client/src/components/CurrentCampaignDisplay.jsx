@@ -4,9 +4,16 @@ import CurrentCampaign from './CurrentCampaign.jsx';
 
 import styles from '../../../styles/CampaignDisplay.css';
 
-const CurrentCampaignDisplay = ({ adCampaignWeek }) => (
-  <div className={styles.wrapper}>
-    <table className={styles.displayTable}>
+const CurrentCampaignDisplay = ({ adCampaignWeek }) => {
+  // values to use for color scale for trend
+  // green -> trending well
+  // red -> trending terribly
+  const maxValue = Math.max(...adCampaignWeek.slice(1).map(metrics => metrics.trend));
+  const minValue = Math.min(...adCampaignWeek.slice(1).map(metrics => metrics.trend));
+
+  return (
+    <div className={styles.wrapper}>
+      <table className={styles.displayTable}>
       <tbody>
         <tr>
           <th>Campaign ID</th>
@@ -28,9 +35,9 @@ const CurrentCampaignDisplay = ({ adCampaignWeek }) => (
         )}
 
       </tbody>
-    </table>
-  </div>
-);
-
+      </table>
+    </div>
+  );
+}
 
 export default CurrentCampaignDisplay;

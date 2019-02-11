@@ -18,7 +18,7 @@ const CampaignDisplay = ({ weekMetrics, handleSelectCampaign }) => (
           <th>Clicks</th>
           <th>Budget Recommendation</th>
         </tr>
-         
+
         {weekMetrics.map(adCampaign =>
           <Campaign
             adCampaign={adCampaign} 

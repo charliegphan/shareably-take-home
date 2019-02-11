@@ -3,14 +3,26 @@ const express = require('express');
 const path = require('path');
 
 const {
+  allocateBudget,
+} = require('../metricsCalculator/budgetRecommendation');
+
+const {
   generateWeekOfMetrics,
+} = require('../metricsCalculator/apiCall');
+
+const {
+  grabAdCampaignWeek,
+} = require('../metricsCalculator/grabAdCampaignWeek');
+
+const {
   convertWeekOfMetricsToAdCampaignsByWeek,
   aggregateWeekOfMetrics,
-  calculateAggregateProfitsForWeek,
   sortAggregateWeekOfMetricsByProfit,
-  allocateBudget,
-  grabAdCampaignWeek,
-} = require('../metricsCalculator/budgetRecommendation');
+} = require('../metricsCalculator/organizeMetrics');
+
+const {
+  calculateAggregateProfitsForWeek,
+} = require('../metricsCalculator/calculate');
 
 const app = express();
 

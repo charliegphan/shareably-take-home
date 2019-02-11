@@ -84,11 +84,23 @@ class App extends Component {
       displayWeekSummaryButton = (<div className={styles.buttonWrapper} />);
     }
 
+    let loading;
+
+    if (weekMetrics.length > 0) {
+      loading = (
+        <div className={styles.wrapper}>
+          <Header />
+          {displayWeekSummaryButton}
+          {currentDisplay}
+        </div>
+      );
+    } else {
+      loading = (<div />);
+    }
+
     return (
-      <div className={styles.wrapper}>
-        <Header />
-        {displayWeekSummaryButton}
-        {currentDisplay}
+      <div>
+        {loading}
       </div>
     );
   }
