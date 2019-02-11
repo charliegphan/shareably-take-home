@@ -57,6 +57,7 @@ class App extends Component {
 
     let currentDisplay;
     let displayWeekSummaryButton;
+    let currentView;
 
     if (currentCampaign) {
       currentDisplay = (
@@ -64,6 +65,7 @@ class App extends Component {
           adCampaignWeek={currentCampaign}
         />
       );
+
       displayWeekSummaryButton = (
         <div className={styles.buttonWrapper}>
           <button
@@ -74,6 +76,7 @@ class App extends Component {
           </button>
         </div>
       );
+      currentView = 'Campaign Week Summary';
     } else {
       currentDisplay = (
         <CampaignDisplay
@@ -82,6 +85,7 @@ class App extends Component {
         />
       );
       displayWeekSummaryButton = (<div className={styles.buttonWrapper} />);
+      currentView = 'Weekly Summary';
     }
 
     let loading;
@@ -90,6 +94,7 @@ class App extends Component {
       loading = (
         <div className={styles.wrapper}>
           <Header />
+          <h3 className={styles.currentView}>CURRENTLY VIEWING: {currentView}</h3>
           {displayWeekSummaryButton}
           {currentDisplay}
         </div>

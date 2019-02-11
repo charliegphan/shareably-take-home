@@ -4,25 +4,25 @@ const path = require('path');
 
 const {
   allocateBudget,
-} = require('../metricsCalculator/budgetRecommendation');
+} = require('../budgetRecommendation/budgetRecommendation');
 
 const {
   generateWeekOfMetrics,
-} = require('../metricsCalculator/apiCall');
+} = require('../budgetRecommendation/apiCall');
 
 const {
   grabAdCampaignWeek,
-} = require('../metricsCalculator/grabAdCampaignWeek');
+} = require('../budgetRecommendation/grabAdCampaignWeek');
 
 const {
   convertWeekOfMetricsToAdCampaignsByWeek,
   aggregateWeekOfMetrics,
   sortAggregateWeekOfMetricsByProfit,
-} = require('../metricsCalculator/organizeMetrics');
+} = require('../budgetRecommendation/organizeMetrics');
 
 const {
   calculateAggregateProfitsForWeek,
-} = require('../metricsCalculator/calculate');
+} = require('../budgetRecommendation/calculate');
 
 const app = express();
 

@@ -1,7 +1,6 @@
 import React from 'react';
 
 const CurrentCampaign = ({ singleDayMetrics }) => {
-
   return (
     <tr>
       <td>{singleDayMetrics.id}</td>
@@ -13,7 +12,7 @@ const CurrentCampaign = ({ singleDayMetrics }) => {
       <td>{singleDayMetrics.clicks}</td>
       <td>{singleDayMetrics.trend}</td>
     </tr>
-  )
+  );
 }
 
 export default CurrentCampaign;
