@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import Header from './Header.jsx';
 import CampaignDisplay from './CampaignDisplay.jsx';
+import CurrentCampaignDisplay from './CurrentCampaignDisplay.jsx';
 
 import styles from '../../../styles/App.css';
 
@@ -43,6 +44,12 @@ class App extends Component {
     }));
   }
 
+  handleDisplayWeekSummary() {
+    this.setState({
+      currentCampaign: null,
+    })
+  }
+
   render() {
     const {
       display,
@@ -50,13 +57,36 @@ class App extends Component {
       currentCampaign,
     } = this.state;
 
-    return (
-      <div className={styles.wrapper}>
-        <Header />
+    let currentDisplay;
+    let displayWeekSummaryButton;
+
+    if (currentCampaign) {
+      currentDisplay = (
+        <CurrentCampaignDisplay
+          adCampaignWeek={currentCampaign}
+        />
+      );
+      displayWeekSummaryButton = (<div />);
+    } else {
+      currentDisplay = (
         <CampaignDisplay
           weekMetrics={weekMetrics}
           handleSelectCampaign={this.handleSelectCampaign}
         />
+      );
+      displayWeekSummaryButton = (
+        <button
+          type="button"
+          onClick={() => this.handleDisplayWeekSummary()}
+        >Display Week Summary
+        </button>
+      );
+    }
+
+    return (
+      <div className={styles.wrapper}>
+        <Header />
+        {currentDisplay}
       </div>
     );
   }

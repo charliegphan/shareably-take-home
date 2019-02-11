@@ -29,6 +29,10 @@ const generateWeekOfDates = (dateRangeOfWeek) => {
   return weekOfDates;
 };
 
+const addDateToMetrics = (metrics, date) => {
+  metrics.forEach(metric => metric.date = date);
+};
+
 const generateWeekOfMetrics = (dateRangeOfWeek, callback) => {
   const weekOfDates = generateWeekOfDates(dateRangeOfWeek);
 
@@ -41,12 +45,15 @@ const generateWeekOfMetrics = (dateRangeOfWeek, callback) => {
         date,
       },
     };
+
     request(urlAndQuery, (err, res) => {
       if (err) {
         console.log(err);
       }
 
-      resolve(JSON.parse(res.body));
+      const metrics = JSON.parse(res.body);
+      addDateToMetrics(metrics, date);
+      resolve(metrics);
     });
   }));
 
