@@ -1,25 +1,5 @@
 require('dotenv').config();
 
-const {
-  addZeroRevenue,
-} = require('./decorators');
-
-const {
-  calculateAggregateProfitsForWeek,
-} = require('./calculate');
-
-const {
-  generateWeekOfMetrics,
-} = require('./apiCall');
-
-/*
-NOTE - I understand Math.round should never be used
-for actual money - I used rounding for consistency
-in the UI.
-*/
-
-// BUDGET RECOMMENDATION CALCUALTIONS
-
 const allocateBudget = (sortedAggregateWeekOfMetricsByProfit, callback) => {
   let budgetToAllocate = 0;
   let positiveProfit = 0;
