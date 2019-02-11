@@ -12,7 +12,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      display: 'week', // other is single date;
+      display: 'weekSummary', // other display
       week: '2019-01-25,2019-01-31',
       weekMetrics: [],
     };
@@ -46,10 +46,6 @@ class App extends Component {
     return (
       <div className={styles.wrapper}>
         <Header />
-        <Options
-          display={display}
-          handleChangeOptions={this.handleChangeOptions}
-        />
         <CampaignDisplay weekMetrics={weekMetrics} />
       </div>
     );

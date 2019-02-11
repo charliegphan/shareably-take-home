@@ -11,7 +11,6 @@ const {
   allocateBudget,
 } = require('../metricsCalculator/budgetRecommendation');
 
-
 const app = express();
 
 app.use(express.static(path.resolve(__dirname, '../public')));

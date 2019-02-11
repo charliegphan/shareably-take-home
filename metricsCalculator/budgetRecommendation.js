@@ -131,7 +131,6 @@ const sortAggregateWeekOfMetricsByProfit = (aggregateMetricsWithProfit, callback
 const allocateBudget = (sortedAggregateWeekOfMetricsByProfit, callback) => {
   let budgetToAllocate = 0;
   let positiveProfit = 0;
-  let negativeProfit = 0;
 
   const profitableCampaigns = [];
   const unprofitableCampaigns = [];
@@ -139,7 +138,6 @@ const allocateBudget = (sortedAggregateWeekOfMetricsByProfit, callback) => {
   sortedAggregateWeekOfMetricsByProfit.forEach((adCampaign) => {
     if (adCampaign.profit < 0) {
       budgetToAllocate += 70;
-      negativeProfit += adCampaign.profit;
       unprofitableCampaigns.push(adCampaign);
     } else {
       positiveProfit += adCampaign.profit;
@@ -149,7 +147,6 @@ const allocateBudget = (sortedAggregateWeekOfMetricsByProfit, callback) => {
 
   budgetToAllocate = Math.round((budgetToAllocate * 100)) / 100;
   positiveProfit = Math.round((positiveProfit * 100)) / 100;
-  negativeProfit = Math.round((negativeProfit * 100)) / 100;
 
   sortedAggregateWeekOfMetricsByProfit.forEach((adCampaign) => {
 
@@ -158,19 +155,13 @@ const allocateBudget = (sortedAggregateWeekOfMetricsByProfit, callback) => {
     } else {
       const percentageContributionToProfit = adCampaign.profit / positiveProfit;
       const budgetAllocation = budgetToAllocate * percentageContributionToProfit;
-      adCampaign.budgetRecommendation = (Math.round((budgetAllocation * 100)) / 100) + 70;
+      adCampaign.budgetRecommendation = (
+        Math.round((budgetAllocation * 100)) / 100
+      );
     }
   });
 
   callback(sortedAggregateWeekOfMetricsByProfit);
-};
-
-const calculateDayToDayTrend = (adCampaignDay1, adCampaignDay2) => {
-
-};
-
-const calculateWeekTrend = (adCampaignWeeks) => {
-
 };
 
 // generateWeekOfMetrics('2019-01-25,2019-01-31', (weekOfMetrics) => {
