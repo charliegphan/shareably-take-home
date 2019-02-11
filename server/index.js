@@ -8,6 +8,7 @@ const {
   aggregateWeekOfMetrics,
   calculateAggregateProfitsForWeek,
   sortAggregateWeekOfMetricsByProfit,
+  allocateBudget,
 } = require('../metricsCalculator/budgetRecommendation');
 
 
@@ -19,11 +20,16 @@ app.get('/week', (req, res) => {
   generateWeekOfMetrics(req.query.week, (weekOfMetrics) => {
     convertWeekOfMetricsToAdCampaignsByWeek(weekOfMetrics, (adCampaignWeeks) => {
       aggregateWeekOfMetrics(adCampaignWeeks, (metricsCombinedAcrossWeek) => {
-        calculateAggregateProfitsForWeek(metricsCombinedAcrossWeek, (aggregateMetricsWithProfit) => {
-          sortAggregateWeekOfMetricsByProfit(aggregateMetricsWithProfit, (sortedAggregateMetricsWithProfit) => {
-            res.send(sortedAggregateMetricsWithProfit);
+        calculateAggregateProfitsForWeek(metricsCombinedAcrossWeek,
+          (aggregateMetricsWithProfit) => {
+            sortAggregateWeekOfMetricsByProfit(aggregateMetricsWithProfit,
+              (sortedAggregateWeekOfMetricsByProfit) => {
+                allocateBudget(sortedAggregateWeekOfMetricsByProfit,
+                  (metricsWithBudgetReccomendation) => {
+                    res.send(metricsWithBudgetReccomendation);
+                  });
+              });
           });
-        });
       });
     });
   });

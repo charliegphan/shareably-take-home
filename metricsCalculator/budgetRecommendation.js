@@ -1,6 +1,12 @@
 require('dotenv').config();
 const request = require('request');
 
+/*
+NOTE - I understand Math.round should never be used
+for actual money - I used rounding for consistency
+in the UI.
+*/
+
 const generateWeekOfDates = (dateRangeOfWeek) => {
   const [startDate, endDate] = dateRangeOfWeek.split(',').map(date => new Date(date));
   endDate.setDate(endDate.getDate() + 1);
@@ -122,12 +128,41 @@ const sortAggregateWeekOfMetricsByProfit = (aggregateMetricsWithProfit, callback
 
 // BUDGET RECOMMENDATION CALCUALTIONS
 
-const calculateAverageProfitForWeek = () => {
+const allocateBudget = (sortedAggregateWeekOfMetricsByProfit, callback) => {
+  let budgetToAllocate = 0;
+  let positiveProfit = 0;
+  let negativeProfit = 0;
 
-};
+  const profitableCampaigns = [];
+  const unprofitableCampaigns = [];
 
-const decorateMetrics = () => {
+  sortedAggregateWeekOfMetricsByProfit.forEach((adCampaign) => {
+    if (adCampaign.profit < 0) {
+      budgetToAllocate += 70;
+      negativeProfit += adCampaign.profit;
+      unprofitableCampaigns.push(adCampaign);
+    } else {
+      positiveProfit += adCampaign.profit;
+      profitableCampaigns.push(adCampaign);
+    }
+  });
 
+  budgetToAllocate = Math.round((budgetToAllocate * 100)) / 100;
+  positiveProfit = Math.round((positiveProfit * 100)) / 100;
+  negativeProfit = Math.round((negativeProfit * 100)) / 100;
+
+  sortedAggregateWeekOfMetricsByProfit.forEach((adCampaign) => {
+
+    if (adCampaign.profit < 0) {
+      adCampaign.budgetRecommendation = 0;
+    } else {
+      const percentageContributionToProfit = adCampaign.profit / positiveProfit;
+      const budgetAllocation = budgetToAllocate * percentageContributionToProfit;
+      adCampaign.budgetRecommendation = (Math.round((budgetAllocation * 100)) / 100) + 70;
+    }
+  });
+
+  callback(sortedAggregateWeekOfMetricsByProfit);
 };
 
 const calculateDayToDayTrend = (adCampaignDay1, adCampaignDay2) => {
@@ -141,13 +176,16 @@ const calculateWeekTrend = (adCampaignWeeks) => {
 // generateWeekOfMetrics('2019-01-25,2019-01-31', (weekOfMetrics) => {
 //   convertWeekOfMetricsToAdCampaignsByWeek(weekOfMetrics, (adCampaignWeeks) => {
 //     aggregateWeekOfMetrics(adCampaignWeeks, (metricsCombinedAcrossWeek) => {
-//       calculateAggregateProfitsForWeek(metricsCombinedAcrossWeek, (aggregateMetricsWithProfit) => {
-//         sortAggregateWeekOfMetricsByProfit(aggregateMetricsWithProfit);
-//       });
+//       calculateAggregateProfitsForWeek(metricsCombinedAcrossWeek,
+//         (aggregateMetricsWithProfit) => {
+//           sortAggregateWeekOfMetricsByProfit(aggregateMetricsWithProfit,
+//             (sortedAggregateWeekOfMetricsByProfit) => {
+//               allocateBudget(sortedAggregateWeekOfMetricsByProfit);
+//             });
+//         });
 //     });
 //   });
 // });
-// generateWeekOfMetrics('2019-01-25,2019-01-31', convertWeekOfMetricsToAdCampaignsByWeek);
 
 
 module.exports = {
@@ -156,4 +194,5 @@ module.exports = {
   aggregateWeekOfMetrics,
   calculateAggregateProfitsForWeek,
   sortAggregateWeekOfMetricsByProfit,
+  allocateBudget,
 };
